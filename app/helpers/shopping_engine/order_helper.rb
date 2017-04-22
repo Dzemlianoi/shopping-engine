@@ -8,7 +8,7 @@ module ShoppingEngine
 
     def sort_present?
       return unless params.key? :order
-      Order::MY_ORDERS_STATES.include? params[:order].to_sym
+      ShoppingEngine::Order::MY_ORDERS_STATES.include? params[:order].to_sym
     end
   end
 end

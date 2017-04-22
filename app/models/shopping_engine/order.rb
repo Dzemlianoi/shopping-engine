@@ -94,16 +94,16 @@ module ShoppingEngine
 
     def send_confirmation
       update_attributes(confirmation_token: Devise.friendly_token)
-      OrderMailer.confirmation_send(user, self).deliver_now
+      ShoppingEngine::OrderMailer.confirmation_send(user, self).deliver_now
     end
 
     def treat_proccessing
       self.confirmation_token = nil
-      OrderMailer.treating_send(user, self).deliver_now
+      ShoppingEngine::OrderMailer.treating_send(user, self).deliver_now
     end
 
     def send_success
-      OrderMailer.success_send(user, self).deliver_later
+      ShoppingEngine::OrderMailer.success_send(user, self).deliver_later
     end
 
     def recalculate_total(_)
@@ -111,19 +111,19 @@ module ShoppingEngine
     end
 
     def subtotal_price
-      PricableService.subtotal_price(order_items)
+      ShoppingEngine::PricableService.subtotal_price(order_items)
     end
 
     def discount
-      PricableService.discount(coupon)
+      ShoppingEngine::PricableService.discount(coupon)
     end
 
     def delivery_price
-      PricableService.delivery_price(delivery)
+      ShoppingEngine::PricableService.delivery_price(delivery)
     end
 
     def total_price
-      PricableService.total_price(order_items, coupon, delivery)
+      ShoppingEngine::PricableService.total_price(order_items, coupon, delivery)
     end
 
     def active?

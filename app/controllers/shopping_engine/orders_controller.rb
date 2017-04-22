@@ -30,7 +30,7 @@ module ShoppingEngine
 
     def status_present?
       return unless order_params[:order]
-      Order::MY_ORDERS_STATES.include? order_params[:order].to_sym
+      ShoppingEngine::Order::MY_ORDERS_STATES.include? order_params[:order].to_sym
     end
   end
 end

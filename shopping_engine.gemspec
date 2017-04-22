@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = ShoppingEngine::VERSION
   s.authors     = ['Denis Zemlianoi']
   s.email       = ['dzemlianoi@gmail.com']
-  s.homepage    = 'TODO'
+  s.homepage    = 'https://github.com/dzemlianoi'
   s.summary     = 'Summary of ShoppingEngine.'
   s.description = 'Description of ShoppingEngine.'
   s.license     = 'MIT'

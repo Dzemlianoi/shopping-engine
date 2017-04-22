@@ -1,0 +1,17 @@
+= f.hidden_field :kind, value: kind
+.form-group
+  = f.input :first_name, plaсeholder: "#{I18n.t('orders.addresses.first_name')}", label: t('orders.addresses.first_name'), input_html: { class: 'form-control' }
+.form-group
+  = f.input :last_name, plaсeholder: t('orders.addresses.last_name'), label: t('orders.addresses.last_name'), input_html: { class: 'form-control' }
+.form-group
+  = f.input :address, plaseholder: t('orders.addresses.address'), label: t('orders.addresses.address'), input_html: { class: 'form-control' }
+.form-group
+  = f.input :city, plaсeholder: t('orders.addresses.city'), label: t('orders.addresses.city'), input_html: { class: 'form-control' }
+.form-group
+  = f.input :zip, plaсeholder: t('orders.addresses.zip'), label: t('orders.addresses.zip'), input_html: { class: 'form-control' }
+.form-group
+  = f.input :country, as: :country, priority_countries: ["UA", "RU", "AU", "US"],
+    label: t('orders.addresses.country'),
+    prompt: "Select country", input_html: { class: 'form-control' }
+.form-group
+  = f.input :phone, plaсeholder: t('orders.addresses.phone'), label: t('orders.addresses.phone'), input_html: { class: 'form-control' }

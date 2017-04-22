@@ -1,0 +1,15 @@
+.rspec
+/log
+/tmp
+/spec/tmp
+/.idea
+/.ruby-gemset
+/vendor/bundle
+.byebug_history
+/test/tmp/
+.bundle/
+pkg/
+spec/dummy/db/*.sqlite3
+spec/dummy/db/*.sqlite3-journal
+spec/dummy/log/*.log
+spec/dummy/tmp/

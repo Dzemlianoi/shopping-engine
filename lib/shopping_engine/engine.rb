@@ -8,10 +8,8 @@ module ShoppingEngine
       g.helper false
     end
 
-    initializer 'shopping_cart', after: :load_config_initializers do |_app|
-      ShoppingCart.load_files.each do |file|
-        require_relative File.join('../..', file)
-      end
+    config.before_initialize do
+      config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
     end
   end
 end

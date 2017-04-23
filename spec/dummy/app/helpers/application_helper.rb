@@ -18,7 +18,8 @@ module ApplicationHelper
   end
 
   def empty_cart?
-    current_user_or_guest ? current_user_or_guest.orders.empty? : true
+    true
+    # current_user_or_guest ? current_user_or_guest.orders.empty? : true
   end
 
   def last_order

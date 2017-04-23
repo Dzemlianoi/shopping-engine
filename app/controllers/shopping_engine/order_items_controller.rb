@@ -5,6 +5,7 @@ module ShoppingEngine
     load_and_authorize_resource :order_item, only: %i(destroy update)
 
     def index
+      byebug
       return redirect_to main_app.root_path, alert: t('flashes.error.no_order') unless current_order_active?
       @purchases = last_active_order.order_items.decorate
     end

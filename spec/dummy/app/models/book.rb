@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Book < ApplicationRecord
+  belonging_to_order
+
   scope :newest,      ->(num) { order('created_at DESC').limit(num) }
   scope :bestsellers, ->(num) do
     joins('LEFT JOIN order_items ON order_items.book_id = books.id')
@@ -16,8 +18,6 @@ class Book < ApplicationRecord
   has_many   :reviews
   has_many   :materials, through: :book_materials
   has_many   :authors, through: :book_authors
-  has_many   :order_items
-  has_many   :orders, through: :order_items
   has_many   :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images
   accepts_nested_attributes_for :book_dimension

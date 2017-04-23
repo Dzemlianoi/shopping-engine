@@ -1,4 +1,6 @@
 require 'shopping_engine/engine'
+require 'shopping_engine/model_additions'
+require 'shopping_engine/controller_additions'
 
 require 'aasm'
 require 'bootstrap-sass'

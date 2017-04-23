@@ -2,12 +2,10 @@
 
 class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
-  has_many :orders, dependent: :destroy
   has_one  :image, as: :imageable, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
 
-  validates_uniqueness_of :email, unless: :guest?
-
+  user_order_flow
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:facebook]
@@ -45,12 +43,6 @@ class User < ApplicationRecord
     @user
   end
 
-  def self.create_by_token
-    token = Devise.friendly_token[0, 20]
-    create(guest_token: token)
-    token
-  end
-
   def self.save_avatar
     return unless @auth.info.image
     @user.build_image
@@ -62,22 +54,8 @@ class User < ApplicationRecord
     { first_name: names[0], last_name: names[1] }
   end
 
-  def set_fake_password
-    generated_password = Devise.friendly_token[0, 20]
-    self.password = generated_password
-    skip_confirmation!
-  end
-
   def admin?
     role_name.eql? 'admin'
-  end
-
-  def guest?
-    !guest_token.nil?
-  end
-
-  def verified?
-    orders.after_confirmation.present?
   end
 
   %w(email password confirmation).each do |method_part|

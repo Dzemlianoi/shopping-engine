@@ -25,7 +25,7 @@ RSpec.describe CouponsController, type: :controller do
     end
 
     it 'go to card' do
-      expect(response).to redirect_to(order_items_path)
+      expect(response).to redirect_to(shopping_engine.order_items_path)
     end
 
     it 'right assigns' do

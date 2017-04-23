@@ -4,12 +4,12 @@ module ShoppingEngine
   class Order < ApplicationRecord
     include AASM
 
-    has_many   :addresses, as: :addressable, dependent: :destroy
+    has_many   :addresses, as: :addressable, dependent: :destroy, class_name: ShoppingEngine.addresses_class
     has_many   :order_items, dependent: :destroy, after_add: :recalculate_total, after_remove: :recalculate_total
-    has_many   :books, through: :order_items
+    has_many   :books, through: :order_items, class_name: ShoppingEngine.book_class
     has_one    :coupon, dependent: :destroy
     belongs_to :card, dependent: :destroy
-    belongs_to :user
+    belongs_to :user, class_name: ShoppingEngine.user_class
     belongs_to :delivery
 
     before_create :set_track_number

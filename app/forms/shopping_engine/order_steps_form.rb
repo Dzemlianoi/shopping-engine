@@ -41,7 +41,7 @@ module ShoppingEngine
     end
 
     def deliveries
-      Delivery.all.order('price')
+      ShoppingEngine::Delivery.all.order('price')
     end
 
     private
@@ -63,13 +63,13 @@ module ShoppingEngine
     end
 
     def create_delivery(delivery_id)
-      return unless Delivery.find_by(id: delivery_id)
+      return unless ShoppingEngine::Delivery.find_by(id: delivery_id)
       @order.update_attribute(:delivery_id, delivery_id)
     end
 
     def both_addresses_present?
       addresses = @order.addresses
-      addresses.shipping.present? & addresses.billing.present?
+      addresses.shipping.present? && addresses.billing.present?
     end
   end
 end

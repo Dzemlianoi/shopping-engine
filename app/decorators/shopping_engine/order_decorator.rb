@@ -3,6 +3,6 @@
 module ShoppingEngine
   class OrderDecorator < Drape::Decorator
     delegate_all
-    decorates_association :card, with: CardDecorator
+    decorates_association :card, with: ShoppingEngine::CardDecorator
   end
 end

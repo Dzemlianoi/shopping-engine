@@ -5,9 +5,8 @@ module ShoppingEngine
     load_and_authorize_resource :order_item, only: %i(destroy update)
 
     def index
-      byebug
       return redirect_to main_app.root_path, alert: t('flashes.error.no_order') unless current_order_active?
-      @purchases = last_active_order.order_items.decorate
+      @purchases = last_active_order.order_items
     end
 
     def create
@@ -35,10 +34,6 @@ module ShoppingEngine
     end
 
     private
-
-    def guest_create
-      cookies[:guest_token] = User.create_by_token
-    end
 
     def order_item_params
       params.require(:order_item).permit(:quantity, :book_id, :id)

@@ -19,7 +19,7 @@ module ShoppingEngine
         @order.treat!
         flash.keep[:success] = t('orders.successfull')
       end
-      redirect_to :root
+      redirect_to main_app.root_path
     end
 
     private

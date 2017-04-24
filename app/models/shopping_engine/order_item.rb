@@ -3,7 +3,7 @@
 module ShoppingEngine
   class OrderItem < ApplicationRecord
     belongs_to :order
-    belongs_to :book, class_name: ShoppingEngine.book_class
+    belongs_to :book, class_name: ShoppingEngine.product_class
     delegate :recalculate_total, to: :order
 
     validates_presence_of :quantity, :order

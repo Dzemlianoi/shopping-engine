@@ -11,15 +11,5 @@ module ShoppingEngine
     config.before_initialize do
       config.i18n.load_path += Dir["#{config.root}/config/locales/*.yml"]
     end
-
-    initializer 'shopping_engine' do
-      ActiveSupport.on_load :active_record do
-        ActiveRecord::Base.include ShoppingEngine::ModelAdditions
-      end
-
-      ActiveSupport.on_load :action_controller do
-        ActionController::Base.include ShoppingEngine::ControllerAdditions
-      end
-    end
   end
 end

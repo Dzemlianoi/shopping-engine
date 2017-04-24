@@ -1,10 +1,6 @@
 require 'shopping_engine/engine'
-require 'shopping_engine/model_additions'
+require 'shopping_engine/orderable_model'
 require 'shopping_engine/controller_additions'
-
-Gem.loaded_specs['shopping_cart'].runtime_dependencies.each do |d|
-  require d.name
-end
 
 require 'aasm'
 require 'bootstrap-sass'
@@ -23,6 +19,7 @@ require 'simple_form'
 require 'wicked'
 
 module ShoppingEngine
+  mattr_accessor :address_class
   mattr_accessor :product_class
   mattr_accessor :order_item_class
   mattr_accessor :user_class

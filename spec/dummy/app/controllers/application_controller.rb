@@ -2,6 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
+  include ShoppingEngine::ControllerAdditions
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
 

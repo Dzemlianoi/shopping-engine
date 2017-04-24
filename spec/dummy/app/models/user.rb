@@ -5,7 +5,8 @@ class User < ApplicationRecord
   has_one  :image, as: :imageable, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
 
-  user_order_flow
+  include ShoppingEngine::OrderableModel::User
+
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:facebook]

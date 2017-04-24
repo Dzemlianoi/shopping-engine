@@ -10,6 +10,7 @@ module ShoppingEngine
     end
 
     def create
+      byebug
       guest_create unless current_user_or_guest
       @order = current_order || current_user_or_guest.orders.create
       if @order.book_in_order? order_item_params[:book_id]
@@ -34,6 +35,10 @@ module ShoppingEngine
     end
 
     private
+
+    def guest_create
+      cookies[:guest_token] = User.create_by_token
+    end
 
     def order_item_params
       params.require(:order_item).permit(:quantity, :book_id, :id)

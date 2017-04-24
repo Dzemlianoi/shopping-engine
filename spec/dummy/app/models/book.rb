@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 class Book < ApplicationRecord
-  belonging_to_order
+  include ShoppingEngine::OrderableModel::Product
 
   scope :newest,      ->(num) { order('created_at DESC').limit(num) }
-  scope :bestsellers, ->(num) do
-    joins('LEFT JOIN order_items ON order_items.book_id = books.id')
-      .group('books.id')
-      .order('count(order_items.book_id) DESC, books.created_at DESC')
-      .limit(num)
-  end
+  scope :bestsellers, ->(num) { order('updated_at DESC').limit(num) }
 
   belongs_to :category
   has_one    :book_dimension, dependent: :destroy

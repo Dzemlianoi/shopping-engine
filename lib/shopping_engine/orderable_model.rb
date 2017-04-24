@@ -1,6 +1,6 @@
 module ShoppingEngine
   module OrderableModel
-    class OrderItem
+    module Product
       extend ActiveSupport::Concern
       included do
           has_many   :order_items, class_name: ShoppingEngine.order_item_class
@@ -8,7 +8,7 @@ module ShoppingEngine
         end
       end
 
-    class User
+    module User
       extend ActiveSupport::Concern
       included do
         has_many :orders, class_name: 'ShoppingEngine::Order', dependent: :destroy

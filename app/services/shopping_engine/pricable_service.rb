@@ -2,7 +2,6 @@
 
 module ShoppingEngine
   class PricableService
-
     class << self
       def subtotal_price(order_items)
         order_items.map { |item| item.book[:price] * item.quantity }.inject(&:+)

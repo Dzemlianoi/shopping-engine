@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails'
   s.add_dependency 'simple_form'
   s.add_dependency 'wicked'
-  s.add_dependency 'byebug'
 
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails'

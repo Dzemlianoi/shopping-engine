@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422101221) do
+ActiveRecord::Schema.define(version: 20170424064336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,30 +73,12 @@ ActiveRecord::Schema.define(version: 20170422101221) do
     t.index ["category_id"], name: "index_books_on_category_id", using: :btree
   end
 
-  create_table "cards", force: :cascade do |t|
-    t.string   "card_number"
-    t.string   "name"
-    t.string   "expire_date"
-    t.string   "cvv"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.integer  "count_books", default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.index ["name"], name: "index_categories_on_name", unique: true, using: :btree
-  end
-
-  create_table "deliveries", force: :cascade do |t|
-    t.string   "title"
-    t.decimal  "price",           precision: 5, scale: 2
-    t.integer  "optimistic_days",                         default: 1
-    t.integer  "pesimistic_days",                         default: 1
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
   end
 
   create_table "images", force: :cascade do |t|
@@ -114,33 +96,6 @@ ActiveRecord::Schema.define(version: 20170422101221) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "order_items", force: :cascade do |t|
-    t.integer  "quantity",   default: 1
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "book_id"
-    t.integer  "order_id"
-    t.index ["book_id"], name: "index_order_items_on_book_id", using: :btree
-    t.index ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.string   "aasm_state"
-    t.string   "track_number"
-    t.string   "confirmation_token"
-    t.decimal  "total_price",        precision: 5, scale: 2
-    t.boolean  "use_billing"
-    t.datetime "completed_date"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.integer  "delivery_id"
-    t.integer  "card_id"
-    t.integer  "user_id"
-    t.index ["card_id"], name: "index_orders_on_card_id", using: :btree
-    t.index ["delivery_id"], name: "index_orders_on_delivery_id", using: :btree
-    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.integer  "book_id"
     t.integer  "user_id"
@@ -152,6 +107,51 @@ ActiveRecord::Schema.define(version: 20170422101221) do
     t.datetime "updated_at",                null: false
     t.index ["book_id"], name: "index_reviews_on_book_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
+  create_table "shopping_engine_cards", force: :cascade do |t|
+    t.string   "card_number"
+    t.string   "name"
+    t.string   "expire_date"
+    t.string   "cvv"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "shopping_engine_deliveries", force: :cascade do |t|
+    t.string   "title"
+    t.decimal  "price",           precision: 5, scale: 2
+    t.integer  "optimistic_days",                         default: 1
+    t.integer  "pesimistic_days",                         default: 1
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  create_table "shopping_engine_order_items", force: :cascade do |t|
+    t.integer  "quantity",                 default: 1
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "book_id"
+    t.integer  "shopping_engine_order_id"
+    t.index ["book_id"], name: "index_shopping_engine_order_items_on_book_id", using: :btree
+    t.index ["shopping_engine_order_id"], name: "index_shopping_engine_order_items_on_shopping_engine_order_id", using: :btree
+  end
+
+  create_table "shopping_engine_orders", force: :cascade do |t|
+    t.string   "aasm_state"
+    t.string   "track_number"
+    t.string   "confirmation_token"
+    t.decimal  "total_price",                 precision: 5, scale: 2
+    t.boolean  "use_billing"
+    t.datetime "completed_date"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "shopping_engine_delivery_id"
+    t.integer  "shopping_engine_card_id"
+    t.integer  "user_id"
+    t.index ["shopping_engine_card_id"], name: "index_shopping_engine_orders_on_shopping_engine_card_id", using: :btree
+    t.index ["shopping_engine_delivery_id"], name: "index_shopping_engine_orders_on_shopping_engine_delivery_id", using: :btree
+    t.index ["user_id"], name: "index_shopping_engine_orders_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20170422101221) do
 
   add_foreign_key "book_dimensions", "books"
   add_foreign_key "books", "categories"
-  add_foreign_key "order_items", "books"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "users"
+  add_foreign_key "shopping_engine_order_items", "books"
+  add_foreign_key "shopping_engine_order_items", "shopping_engine_orders"
+  add_foreign_key "shopping_engine_orders", "users"
 end
